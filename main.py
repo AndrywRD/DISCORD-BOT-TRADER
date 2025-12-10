@@ -19,6 +19,7 @@ BALANCES_FILE = DATA_DIR / "balances.json"
 LAST_CLAIM_FILE = DATA_DIR / "last_claims.json"
 CARDS_FILE = DATA_DIR / "cards.json"
 JOIN_TIMES_FILE = DATA_DIR / "join_times.json"
+WINS_FILE = DATA_DIR / "wins.json"
 
 
 def _load_json(path: Path):
@@ -37,6 +38,15 @@ def _save_json(path: Path, data):
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception:
         pass
+
+def get_wins(user_id: str) -> int:
+    data = _load_json(WINS_FILE)
+    return int(data.get(user_id, 0))
+
+def add_win(user_id: str):
+    data = _load_json(WINS_FILE)
+    data[user_id] = int(data.get(user_id, 0)) + 1
+    _save_json(WINS_FILE, data)
 
 
 def _load_join_times():
@@ -479,6 +489,190 @@ async def saldo(ctx):
     saldo_atual = get_balance(user_id)
     await ctx.send(f"{ctx.author.mention}, seu saldo atual é: {saldo_atual} moedas.")
 
+# ---------------------------------------------------------
+# SISTEMA DE DUELOS
+# ---------------------------------------------------------
+duelos_pendentes = {}   # {desafiado_id: desafiante_id}
+duelos_em_andamento = {}  # {user_id: {"oponente": id, "cartas": []}}
+
+def calcular_total(cartas_escolhidas):
+    total_atk = 0
+    total_vida = 0
+    for c in cartas_escolhidas:
+        total_atk += int(c.get("ataque", 0))
+        total_vida += int(c.get("vida", 0))
+    return total_atk, total_vida, total_atk + total_vida
+
+
+@bot.command()
+async def duelar(ctx, oponente: discord.Member):
+    if oponente.bot:
+        return await ctx.send("Você não pode duelar contra bots!")
+
+    if oponente.id == ctx.author.id:
+        return await ctx.send("Você não pode se desafiar!")
+
+    duelos_pendentes[oponente.id] = ctx.author.id
+
+    await ctx.send(
+        f"{oponente.mention}, você foi desafiado por {ctx.author.mention}!\n"
+        f"Use **!aceitar @{ctx.author.display_name}** para iniciar o duelo."
+    )
+
+
+@bot.command()
+async def aceitar(ctx, desafiante: discord.Member):
+    user_id = ctx.author.id
+    if user_id not in duelos_pendentes:
+        return await ctx.send("Você não foi desafiado ou o duelo expirou.")
+
+    if duelos_pendentes[user_id] != desafiante.id:
+        return await ctx.send("Este desafio não é para você.")
+
+    del duelos_pendentes[user_id]
+
+    # Verifica moedas dos dois
+    if get_balance(str(ctx.author.id)) < 10:
+        return await ctx.send(f"{ctx.author.mention} não tem moedas suficientes (mínimo 10).")
+
+    if get_balance(str(desafiante.id)) < 10:
+        return await ctx.send(f"{desafiante.mention} não tem moedas suficientes (mínimo 10).")
+
+    # Deduz 10 moedas
+    deduct_balance(str(ctx.author.id), 10)
+    deduct_balance(str(desafiante.id), 10)
+
+    await ctx.send(
+        f"🔱 O duelo entre {ctx.author.mention} e {desafiante.mention} começou!\n"
+        f"Cada jogador deve escolher **5 cartas** usando:\n"
+        f"**!selecionarcarta ID**\n"
+        f"Quando tiverem as 5 cartas, use **!prontoduelo**."
+    )
+
+    duelos_em_andamento[ctx.author.id] = {"oponente": desafiante.id, "cartas": []}
+    duelos_em_andamento[desafiante.id] = {"oponente": ctx.author.id, "cartas": []}
+
+
+@bot.command()
+async def minhascartas(ctx):
+    """Lista cartas com IDs para facilitar o duelo"""
+    user_id = str(ctx.author.id)
+    cards = get_user_cards(user_id)
+    if not cards:
+        return await ctx.send("Você não possui cartas.")
+
+    msg = "**Suas cartas:**\n"
+    for i, c in enumerate(cards):
+        msg += f"**ID {i}** — {c.get('nome')} ({c.get('raridade')})\n"
+
+    await ctx.send(msg)
+
+
+@bot.command()
+async def selecionarcarta(ctx, card_id: int):
+    user_id = ctx.author.id
+
+    if user_id not in duelos_em_andamento:
+        return await ctx.send("Você não está em um duelo.")
+
+    cards = get_user_cards(str(user_id))
+
+    if card_id < 0 or card_id >= len(cards):
+        return await ctx.send("ID inválido.")
+
+    if len(duelos_em_andamento[user_id]["cartas"]) >= 5:
+        return await ctx.send("Você já escolheu 5 cartas.")
+
+    carta = cards[card_id]
+    duelos_em_andamento[user_id]["cartas"].append(carta)
+
+    await ctx.send(f"Carta **{carta.get('nome')}** adicionada! ({len(duelos_em_andamento[user_id]['cartas'])}/5)")
+
+
+@bot.command()
+async def prontoduelo(ctx):
+    user_id = ctx.author.id
+
+    if user_id not in duelos_em_andamento:
+        return await ctx.send("Você não está em um duelo.")
+
+    if len(duelos_em_andamento[user_id]["cartas"]) < 5:
+        return await ctx.send("Você precisa escolher 5 cartas primeiro!")
+
+    oponente_id = duelos_em_andamento[user_id]["oponente"]
+
+    # Verifica se o oponente escolheu 5 cartas
+    if len(duelos_em_andamento.get(oponente_id, {}).get("cartas", [])) < 5:
+        return await ctx.send("Aguardando o oponente terminar de escolher as cartas...")
+
+    # Ambos prontos — inicia batalha
+    cartas_a = duelos_em_andamento[user_id]["cartas"]
+    cartas_b = duelos_em_andamento[oponente_id]["cartas"]
+
+    atk_a, vida_a, total_a = calcular_total(cartas_a)
+    atk_b, vida_b, total_b = calcular_total(cartas_b)
+
+    # Determina vencedor
+    if total_a > total_b:
+        vencedor = user_id
+        perdedor = oponente_id
+    elif total_b > total_a:
+        vencedor = oponente_id
+        perdedor = user_id
+    else:
+        vencedor = None
+
+    # Limpa duelo
+    del duelos_em_andamento[user_id]
+    del duelos_em_andamento[oponente_id]
+
+    if vencedor is None:
+        return await ctx.send("⚔ O duelo terminou em **EMPATE**! Nenhum ganhou moedas.")
+
+    # Premiação
+    add_balance(str(vencedor), 20)
+    add_win(str(vencedor))
+
+
+    await ctx.send(
+        f"🏆 **DUEL0 FINALIZADO!**\n\n"
+        f"**{bot.get_user(vencedor).mention} venceu o duelo!**\n\n"
+        f"🔥 Totais:\n"
+        f"{ctx.author.mention}: **{total_a}**\n"
+        f"{bot.get_user(oponente_id).mention}: **{total_b}**\n\n"
+        f"💰 {bot.get_user(vencedor).mention} recebeu **20 moedas!**"
+    )
+
+@bot.command()
+async def vitorias(ctx):
+    wins = get_wins(str(ctx.author.id))
+    await ctx.send(f"{ctx.author.mention}, você possui **{wins} vitórias** em duelos!")
+
+@bot.command()
+async def ranking(ctx):
+    data = _load_json(WINS_FILE)
+
+    if not data:
+        return await ctx.send("Nenhum duelo foi vencido ainda.")
+
+    # Ordena por número de vitórias
+    ordenado = sorted(data.items(), key=lambda x: x[1], reverse=True)
+
+    linhas = []
+    pos = 1
+    for user_id, wins in ordenado[:20]:  # Top 20
+        user = bot.get_user(int(user_id))
+        nome = user.display_name if user else f"Usuário {user_id}"
+        linhas.append(f"**#{pos} — {nome}**: {wins} vitória(s)")
+        pos += 1
+
+    embed = discord.Embed(
+        title="🏆 Ranking de Vitórias",
+        description="\n".join(linhas),
+        color=discord.Color.gold()
+    )
+
+    await ctx.send(embed=embed)
 
 if __name__ == "__main__":
     token = os.environ.get("DISCORD_BOT_TOKEN")
