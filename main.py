@@ -19,6 +19,7 @@ BALANCES_FILE = DATA_DIR / "balances.json"
 LAST_CLAIM_FILE = DATA_DIR / "last_claims.json"
 CARDS_FILE = DATA_DIR / "cards.json"
 JOIN_TIMES_FILE = DATA_DIR / "join_times.json"
+WINS_FILE = DATA_DIR / "wins.json"
 
 
 def _load_json(path: Path):
@@ -38,6 +39,14 @@ def _save_json(path: Path, data):
     except Exception:
         pass
 
+def get_wins(user_id: str) -> int:
+    data = _load_json(WINS_FILE)
+    return int(data.get(user_id, 0))
+
+def add_win(user_id: str):
+    data = _load_json(WINS_FILE)
+    data[user_id] = int(data.get(user_id, 0)) + 1
+    _save_json(WINS_FILE, data)
 
 def _load_join_times():
     return _load_json(JOIN_TIMES_FILE)
@@ -108,7 +117,6 @@ def card_already_exists(user_id: str, carta: dict, raridade: str) -> bool:
             return True
     return False
 
-
 raridades = {
     "Comum": 0.6,
     "Rara": 0.3,
@@ -129,21 +137,27 @@ cartas = {
         {"nome": "É MAFIA FAMILIA", "imagem": "imagens/MAFIA.PNG", "ataque": 500, "vida": 1000},
         {"nome": "EVOLUCAO", "imagem": "imagens/EVOLUCAO.PNG", "ataque": 666, "vida": 999},
         {"nome": "BOT DJ CLEITON RASTA", "imagem": "imagens/CLEITONRASTA.png", "ataque": 0, "vida": 0},
-        {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"}
+        {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"},
+        {"nome": "CACHORRO DESCONFIADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&"},
+        {"nome": "VAMO PRA LUA GRU", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&","ataque": 1750 ,"vida": 2200},
+        {"nome": "FooooOOOooOoOlha", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&","ataque": 350 ,"vida": 1300}
     ],
     "Rara": [
         {"nome": "DOUTOR BUGIGANGA", "imagem": "imagens/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
         {"nome": "BERINHEAD", "imagem": "imagens/cabecao.jpg", "ataque": 899, "vida": 0},
-        {"nome": "VEIO DA CORONA", "imagem": "imagens/veiodacorona.png", "ataque": 500, "vida": 2100}
+        {"nome": "VEIO DA CORONA", "imagem": "imagens/veiodacorona.png", "ataque": 500, "vida": 2100},
+        {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg?ex=693b1885&is=6939c705&hm=28717eada1f7f14ba02c7c5648a1b7ff86c9de76539bf355806a67f29e1ad45e&","ataque": 1000 ,"vida": 1669}
     ],
     "Épica": [
         {"nome": "ROGERIO", "imagem": "imagens/ROGERIO.jpg", "ataque": 2000, "vida": 2000},
         {"nome": "CHIQUINHA CABELUDA", "imagem": "imagens/chiquinha.png", "ataque": 250, "vida": 4000},
-        {"nome": "NOIA DO K9", "imagem": "imagens/noiak9.png"}
+        {"nome": "NOIA DO K9", "imagem": "imagens/noiak9.png"},
+        {"nome": "TECNICO EM ELETRONICA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&", "ataque": 3.14, "vida": 2200}
     ],
     "Lendária": [
         {"nome": "NARUTO MACONHEIRO", "imagem": "imagens/NARUTOMACONHEIRO.png", "ataque": 2100, "vida": 1800},
-        {"nome": "CR7 AURA+EGO", "imagem": "imagens/cr7.png", "ataque": 3500, "vida": 0}
+        {"nome": "CR7 AURA+EGO", "imagem": "imagens/cr7.png", "ataque": 3500, "vida": 0},
+        {"nome": "MACONHESCO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448394810347229296/MACONHESCO.jpeg?ex=693b1a48&is=6939c8c8&hm=5de3e6f91a975e8c434b53c333048d8ab937af028092030d56788af595ee88d4&", "ataque": 1420, "vida": 3333}
     ]
 }
 
@@ -344,7 +358,7 @@ async def on_member_join(member):
 
 async def _process_join_awards():
     CHECK_INTERVAL = 60
-    AWARD_SECONDS = 60 * 30
+    AWARD_SECONDS = 60 * 60
     while True:
         try:
             now = time.time()
@@ -473,6 +487,190 @@ async def saldo(ctx):
     saldo_atual = get_balance(user_id)
     await ctx.send(f"{ctx.author.mention}, seu saldo atual é: {saldo_atual} moedas.")
 
+# ---------------------------------------------------------
+# SISTEMA DE DUELOS
+# ---------------------------------------------------------
+duelos_pendentes = {}   # {desafiado_id: desafiante_id}
+duelos_em_andamento = {}  # {user_id: {"oponente": id, "cartas": []}}
+
+def calcular_total(cartas_escolhidas):
+    total_atk = 0
+    total_vida = 0
+    for c in cartas_escolhidas:
+        total_atk += int(c.get("ataque", 0))
+        total_vida += int(c.get("vida", 0))
+    return total_atk, total_vida, total_atk + total_vida
+
+
+@bot.command()
+async def duelar(ctx, oponente: discord.Member):
+    if oponente.bot:
+        return await ctx.send("Você não pode duelar contra bots!")
+
+    if oponente.id == ctx.author.id:
+        return await ctx.send("Você não pode se desafiar!")
+
+    duelos_pendentes[oponente.id] = ctx.author.id
+
+    await ctx.send(
+        f"{oponente.mention}, você foi desafiado por {ctx.author.mention}!\n"
+        f"Use **!aceitar @{ctx.author.display_name}** para iniciar o duelo."
+    )
+
+
+@bot.command()
+async def aceitar(ctx, desafiante: discord.Member):
+    user_id = ctx.author.id
+    if user_id not in duelos_pendentes:
+        return await ctx.send("Você não foi desafiado ou o duelo expirou.")
+
+    if duelos_pendentes[user_id] != desafiante.id:
+        return await ctx.send("Este desafio não é para você.")
+
+    del duelos_pendentes[user_id]
+
+    # Verifica moedas dos dois
+    if get_balance(str(ctx.author.id)) < 10:
+        return await ctx.send(f"{ctx.author.mention} não tem moedas suficientes (mínimo 10).")
+
+    if get_balance(str(desafiante.id)) < 10:
+        return await ctx.send(f"{desafiante.mention} não tem moedas suficientes (mínimo 10).")
+
+    # Deduz 10 moedas
+    deduct_balance(str(ctx.author.id), 10)
+    deduct_balance(str(desafiante.id), 10)
+
+    await ctx.send(
+        f"🔱 O duelo entre {ctx.author.mention} e {desafiante.mention} começou!\n"
+        f"Cada jogador deve escolher **5 cartas** usando:\n"
+        f"**!selecionarcarta ID**\n"
+        f"Quando tiverem as 5 cartas, use **!prontoduelo**."
+    )
+
+    duelos_em_andamento[ctx.author.id] = {"oponente": desafiante.id, "cartas": []}
+    duelos_em_andamento[desafiante.id] = {"oponente": ctx.author.id, "cartas": []}
+
+
+@bot.command()
+async def minhascartas(ctx):
+    """Lista cartas com IDs para facilitar o duelo"""
+    user_id = str(ctx.author.id)
+    cards = get_user_cards(user_id)
+    if not cards:
+        return await ctx.send("Você não possui cartas.")
+
+    msg = "**Suas cartas:**\n"
+    for i, c in enumerate(cards):
+        msg += f"**ID {i}** — {c.get('nome')} ({c.get('raridade')})\n"
+
+    await ctx.send(msg)
+
+
+@bot.command()
+async def selecionarcarta(ctx, card_id: int):
+    user_id = ctx.author.id
+
+    if user_id not in duelos_em_andamento:
+        return await ctx.send("Você não está em um duelo.")
+
+    cards = get_user_cards(str(user_id))
+
+    if card_id < 0 or card_id >= len(cards):
+        return await ctx.send("ID inválido.")
+
+    if len(duelos_em_andamento[user_id]["cartas"]) >= 5:
+        return await ctx.send("Você já escolheu 5 cartas.")
+
+    carta = cards[card_id]
+    duelos_em_andamento[user_id]["cartas"].append(carta)
+
+    await ctx.send(f"Carta **{carta.get('nome')}** adicionada! ({len(duelos_em_andamento[user_id]['cartas'])}/5)")
+
+
+@bot.command()
+async def prontoduelo(ctx):
+    user_id = ctx.author.id
+
+    if user_id not in duelos_em_andamento:
+        return await ctx.send("Você não está em um duelo.")
+
+    if len(duelos_em_andamento[user_id]["cartas"]) < 5:
+        return await ctx.send("Você precisa escolher 5 cartas primeiro!")
+
+    oponente_id = duelos_em_andamento[user_id]["oponente"]
+
+    # Verifica se o oponente escolheu 5 cartas
+    if len(duelos_em_andamento.get(oponente_id, {}).get("cartas", [])) < 5:
+        return await ctx.send("Aguardando o oponente terminar de escolher as cartas...")
+
+    # Ambos prontos — inicia batalha
+    cartas_a = duelos_em_andamento[user_id]["cartas"]
+    cartas_b = duelos_em_andamento[oponente_id]["cartas"]
+
+    atk_a, vida_a, total_a = calcular_total(cartas_a)
+    atk_b, vida_b, total_b = calcular_total(cartas_b)
+
+    # Determina vencedor
+    if total_a > total_b:
+        vencedor = user_id
+        perdedor = oponente_id
+    elif total_b > total_a:
+        vencedor = oponente_id
+        perdedor = user_id
+    else:
+        vencedor = None
+
+    # Limpa duelo
+    del duelos_em_andamento[user_id]
+    del duelos_em_andamento[oponente_id]
+
+    if vencedor is None:
+        return await ctx.send("⚔ O duelo terminou em **EMPATE**! Nenhum ganhou moedas.")
+
+    # Premiação
+    add_balance(str(vencedor), 20)
+    add_win(str(vencedor))
+
+
+    await ctx.send(
+        f"🏆 **DUEL0 FINALIZADO!**\n\n"
+        f"**{bot.get_user(vencedor).mention} venceu o duelo!**\n\n"
+        f"🔥 Totais:\n"
+        f"{ctx.author.mention}: **{total_a}**\n"
+        f"{bot.get_user(oponente_id).mention}: **{total_b}**\n\n"
+        f"💰 {bot.get_user(vencedor).mention} recebeu **20 moedas!**"
+    )
+
+@bot.command()
+async def vitorias(ctx):
+    wins = get_wins(str(ctx.author.id))
+    await ctx.send(f"{ctx.author.mention}, você possui **{wins} vitórias** em duelos!")
+
+@bot.command()
+async def ranking(ctx):
+    data = _load_json(WINS_FILE)
+
+    if not data:
+        return await ctx.send("Nenhum duelo foi vencido ainda.")
+
+    # Ordena por número de vitórias
+    ordenado = sorted(data.items(), key=lambda x: x[1], reverse=True)
+
+    linhas = []
+    pos = 1
+    for user_id, wins in ordenado[:20]:  # Top 20
+        user = bot.get_user(int(user_id))
+        nome = user.display_name if user else f"Usuário {user_id}"
+        linhas.append(f"**#{pos} — {nome}**: {wins} vitória(s)")
+        pos += 1
+
+    embed = discord.Embed(
+        title="🏆 Ranking de Vitórias",
+        description="\n".join(linhas),
+        color=discord.Color.gold()
+    )
+
+    await ctx.send(embed=embed)
 
 if __name__ == "__main__":
     token = os.environ.get("DISCORD_BOT_TOKEN")
