@@ -48,6 +48,13 @@
       "ataque": 2000,
       "vida": 2000,
       "raridade": "Épica"
+    },
+    {
+      "nome": "BOT DJ CLEITON RASTA",
+      "imagem": "imagens/CLEITONRASTA.png",
+      "ataque": 0,
+      "vida": 0,
+      "raridade": "Comum"
     }
   ],
   "396353015302324226": [
