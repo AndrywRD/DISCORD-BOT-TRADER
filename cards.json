@@ -1,0 +1,146 @@
+{
+  "210843767907811328": [
+    {
+      "nome": "BERINHEAD",
+      "imagem": "imagens/cabecao.jpg",
+      "ataque": 899,
+      "vida": 0,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "É MAFIA FAMILIA",
+      "imagem": "imagens/MAFIA.PNG",
+      "ataque": 500,
+      "vida": 1000,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "PUNHETAÇO",
+      "imagem": "imagens/HORADOPUNHETAO.png",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "DOUTOR BUGIGANGA",
+      "imagem": "imagens/DOUTORBUGIGANGA.png",
+      "ataque": 1000,
+      "vida": 1500,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "EVOLUCAO",
+      "imagem": "imagens/EVOLUCAO.PNG",
+      "ataque": 666,
+      "vida": 999,
+      "raridade": "Comum"
+    }
+  ],
+  "304389632735444993": [
+    {
+      "nome": "andryw",
+      "imagem": "imagens/ANDRYW_RUHAN.jpeg",
+      "ataque": 500,
+      "vida": -500,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "É MAFIA FAMILIA",
+      "imagem": "imagens/MAFIA.PNG",
+      "ataque": 500,
+      "vida": 1000,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "ROGERIO",
+      "imagem": "imagens/rogerio.jpg",
+      "ataque": 2000,
+      "vida": 2000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "BOT DJ CLEITON RASTA",
+      "imagem": "imagens/CLEITONRASTA.png",
+      "ataque": 0,
+      "vida": 0,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "DOUTOR BUGIGANGA",
+      "imagem": "imagens/DOUTORBUGIGANGA.png",
+      "ataque": 1000,
+      "vida": 1500,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "VEIO DA CORONA",
+      "imagem": "imagens/veiodacorona.png",
+      "ataque": 500,
+      "vida": 2100,
+      "raridade": "Rara"
+    }
+  ],
+  "396353015302324226": [
+    {
+      "nome": "DOUTOR BUGIGANGA",
+      "imagem": "imagens/DOUTORBUGIGANGA.png",
+      "ataque": 1000,
+      "vida": 1500,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "É MAFIA FAMILIA",
+      "imagem": "imagens/MAFIA.PNG",
+      "ataque": 500,
+      "vida": 1000,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "ROGERIO",
+      "imagem": "imagens/rogerio.jpg",
+      "ataque": 2000,
+      "vida": 2000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "andryw",
+      "imagem": "imagens/ANDRYW_RUHAN.jpeg",
+      "ataque": 500,
+      "vida": -500,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "VEIO DA CORONA",
+      "imagem": "imagens/veiodacorona.png",
+      "ataque": 500,
+      "vida": 2100,
+      "raridade": "Rara"
+    }
+  ],
+  "926285996134375515": [
+    {
+      "nome": "PUNHETAÇO",
+      "imagem": "imagens/HORADOPUNHETAO.png",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "andryw",
+      "imagem": "imagens/ANDRYW_RUHAN.jpeg",
+      "ataque": 500,
+      "vida": -500,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BOT DJ CLEITON RASTA",
+      "imagem": "imagens/CLEITONRASTA.png",
+      "ataque": 0,
+      "vida": 0,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BERINHEAD",
+      "imagem": "imagens/cabecao.jpg",
+      "ataque": 899,
+      "vida": 0,
+      "raridade": "Rara"
+    }
+  ]
+}
