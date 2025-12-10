@@ -32,6 +32,11 @@
       "ataque": 666,
       "vida": 999,
       "raridade": "Comum"
+    },
+    {
+      "nome": "CACHORRO DESCONFIADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
+      "raridade": "Comum"
     }
   ],
   "304389632735444993": [
