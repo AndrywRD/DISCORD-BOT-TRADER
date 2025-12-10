@@ -48,6 +48,7 @@ def add_win(user_id: str):
     data[user_id] = int(data.get(user_id, 0)) + 1
     _save_json(WINS_FILE, data)
 
+
 def _load_join_times():
     return _load_json(JOIN_TIMES_FILE)
 
@@ -116,6 +117,12 @@ def card_already_exists(user_id: str, carta: dict, raridade: str) -> bool:
             card.get("raridade") == raridade):
             return True
     return False
+
+def escolher_5_aleatorias(lista):
+    if len(lista) <= 5:
+        return lista  # se tiver 5 ou menos cartas, usa todas
+    return random.sample(lista, 5)
+
 
 raridades = {
     "Comum": 0.6,
@@ -378,11 +385,10 @@ async def _process_join_awards():
                                 del data[gid][uid]
                                 changed = True
                                 continue
+
+                            # Da recompensa
                             add_balance(uid, 100)
-                            try:
-                                await member.send("Parabéns — você recebeu 100 moedas por ficar 30 minutos no servidor!")
-                            except Exception:
-                                pass
+
                             data[gid][uid] = now
                             changed = True
                     except Exception:
@@ -399,6 +405,7 @@ async def _process_join_awards():
         except Exception:
             pass
         await asyncio.sleep(CHECK_INTERVAL)
+
 
 
 @bot.command()
@@ -505,141 +512,119 @@ def calcular_total(cartas_escolhidas):
 @bot.command()
 async def duelar(ctx, oponente: discord.Member):
     if oponente.bot:
-        return await ctx.send("Você não pode duelar contra bots!")
+        return await ctx.send("❌ Você não pode duelar contra bots!")
 
     if oponente.id == ctx.author.id:
-        return await ctx.send("Você não pode se desafiar!")
+        return await ctx.send("❌ Você não pode se desafiar!")
 
     duelos_pendentes[oponente.id] = ctx.author.id
 
-    await ctx.send(
-        f"{oponente.mention}, você foi desafiado por {ctx.author.mention}!\n"
-        f"Use **!aceitar @{ctx.author.display_name}** para iniciar o duelo."
+    embed = discord.Embed(
+        title="⚔️ Novo Desafio de Duelo!",
+        description=(
+            f"{oponente.mention}, você foi desafiado por **{ctx.author.mention}**!\n\n"
+            f"Para aceitar, use:\n👉 **!aceitar @{ctx.author.display_name}**"
+        ),
+        color=discord.Color.orange()
     )
+
+    embed.set_thumbnail(url=ctx.author.avatar.url if ctx.author.avatar else None)
+
+    await ctx.send(embed=embed)
 
 
 @bot.command()
 async def aceitar(ctx, desafiante: discord.Member):
     user_id = ctx.author.id
+
     if user_id not in duelos_pendentes:
-        return await ctx.send("Você não foi desafiado ou o duelo expirou.")
+        return await ctx.send("❌ Você não foi desafiado ou o duelo expirou.")
 
     if duelos_pendentes[user_id] != desafiante.id:
-        return await ctx.send("Este desafio não é para você.")
+        return await ctx.send("❌ Este desafio não é para você.")
 
     del duelos_pendentes[user_id]
 
-    # Verifica moedas dos dois
+    # Verifica moedas
     if get_balance(str(ctx.author.id)) < 10:
-        return await ctx.send(f"{ctx.author.mention} não tem moedas suficientes (mínimo 10).")
+        return await ctx.send(f"💸 {ctx.author.mention} não tem moedas suficientes (mínimo 10).")
 
     if get_balance(str(desafiante.id)) < 10:
-        return await ctx.send(f"{desafiante.mention} não tem moedas suficientes (mínimo 10).")
+        return await ctx.send(f"💸 {desafiante.mention} não tem moedas suficientes (mínimo 10).")
 
-    # Deduz 10 moedas
     deduct_balance(str(ctx.author.id), 10)
     deduct_balance(str(desafiante.id), 10)
 
-    await ctx.send(
-        f"🔱 O duelo entre {ctx.author.mention} e {desafiante.mention} começou!\n"
-        f"Cada jogador deve escolher **5 cartas** usando:\n"
-        f"**!selecionarcarta ID**\n"
-        f"Quando tiverem as 5 cartas, use **!prontoduelo**."
-    )
+    cartas_desafiante = get_user_cards(str(desafiante.id))
+    cartas_desafiado = get_user_cards(str(ctx.author.id))
 
-    duelos_em_andamento[ctx.author.id] = {"oponente": desafiante.id, "cartas": []}
-    duelos_em_andamento[desafiante.id] = {"oponente": ctx.author.id, "cartas": []}
+    if len(cartas_desafiante) == 0:
+        return await ctx.send(f"{desafiante.mention} não possui cartas!")
+    if len(cartas_desafiado) == 0:
+        return await ctx.send(f"{ctx.author.mention} não possui cartas!")
 
+    escolhidas_desafiante = escolher_5_aleatorias(cartas_desafiante)
+    escolhidas_desafiado = escolher_5_aleatorias(cartas_desafiado)
 
-@bot.command()
-async def minhascartas(ctx):
-    """Lista cartas com IDs para facilitar o duelo"""
-    user_id = str(ctx.author.id)
-    cards = get_user_cards(user_id)
-    if not cards:
-        return await ctx.send("Você não possui cartas.")
-
-    msg = "**Suas cartas:**\n"
-    for i, c in enumerate(cards):
-        msg += f"**ID {i}** — {c.get('nome')} ({c.get('raridade')})\n"
-
-    await ctx.send(msg)
-
-
-@bot.command()
-async def selecionarcarta(ctx, card_id: int):
-    user_id = ctx.author.id
-
-    if user_id not in duelos_em_andamento:
-        return await ctx.send("Você não está em um duelo.")
-
-    cards = get_user_cards(str(user_id))
-
-    if card_id < 0 or card_id >= len(cards):
-        return await ctx.send("ID inválido.")
-
-    if len(duelos_em_andamento[user_id]["cartas"]) >= 5:
-        return await ctx.send("Você já escolheu 5 cartas.")
-
-    carta = cards[card_id]
-    duelos_em_andamento[user_id]["cartas"].append(carta)
-
-    await ctx.send(f"Carta **{carta.get('nome')}** adicionada! ({len(duelos_em_andamento[user_id]['cartas'])}/5)")
-
-
-@bot.command()
-async def prontoduelo(ctx):
-    user_id = ctx.author.id
-
-    if user_id not in duelos_em_andamento:
-        return await ctx.send("Você não está em um duelo.")
-
-    if len(duelos_em_andamento[user_id]["cartas"]) < 5:
-        return await ctx.send("Você precisa escolher 5 cartas primeiro!")
-
-    oponente_id = duelos_em_andamento[user_id]["oponente"]
-
-    # Verifica se o oponente escolheu 5 cartas
-    if len(duelos_em_andamento.get(oponente_id, {}).get("cartas", [])) < 5:
-        return await ctx.send("Aguardando o oponente terminar de escolher as cartas...")
-
-    # Ambos prontos — inicia batalha
-    cartas_a = duelos_em_andamento[user_id]["cartas"]
-    cartas_b = duelos_em_andamento[oponente_id]["cartas"]
-
-    atk_a, vida_a, total_a = calcular_total(cartas_a)
-    atk_b, vida_b, total_b = calcular_total(cartas_b)
+    atk_a, vida_a, total_a = calcular_total(escolhidas_desafiante)
+    atk_b, vida_b, total_b = calcular_total(escolhidas_desafiado)
 
     # Determina vencedor
     if total_a > total_b:
-        vencedor = user_id
-        perdedor = oponente_id
+        vencedor = desafiante.id
+        perdedor = ctx.author.id
     elif total_b > total_a:
-        vencedor = oponente_id
-        perdedor = user_id
+        vencedor = ctx.author.id
+        perdedor = desafiante.id
     else:
         vencedor = None
 
-    # Limpa duelo
-    del duelos_em_andamento[user_id]
-    del duelos_em_andamento[oponente_id]
-
+    # Empate
     if vencedor is None:
-        return await ctx.send("⚔ O duelo terminou em **EMPATE**! Nenhum ganhou moedas.")
+        embed = discord.Embed(
+            title="⚔️ Duelo Finalizado!",
+            description="O duelo terminou em **EMPATE**! Nenhum jogador ganhou moedas.",
+            color=discord.Color.greyple()
+        )
+        return await ctx.send(embed=embed)
 
     # Premiação
     add_balance(str(vencedor), 20)
     add_win(str(vencedor))
 
+    jogadorA = desafiante
+    jogadorB = ctx.author
 
-    await ctx.send(
-        f"🏆 **DUEL0 FINALIZADO!**\n\n"
-        f"**{bot.get_user(vencedor).mention} venceu o duelo!**\n\n"
-        f"🔥 Totais:\n"
-        f"{ctx.author.mention}: **{total_a}**\n"
-        f"{bot.get_user(oponente_id).mention}: **{total_b}**\n\n"
-        f"💰 {bot.get_user(vencedor).mention} recebeu **20 moedas!**"
+    def formatar_cartas(lista):
+        return "\n".join([f"• {c.get('nome')} ({c.get('ataque','?')} ATK / {c.get('vida','?')} VIDA)" for c in lista])
+
+    embed = discord.Embed(
+        title="🏆 Resultado do Duelo",
+        color=discord.Color.gold()
     )
+
+    embed.add_field(
+        name=f"🟥 {jogadorA.display_name} — **{total_a} pontos**",
+        value=formatar_cartas(escolhidas_desafiante),
+        inline=False
+    )
+
+    embed.add_field(
+        name=f"🟦 {jogadorB.display_name} — **{total_b} pontos**",
+        value=formatar_cartas(escolhidas_desafiado),
+        inline=False
+    )
+
+    embed.add_field(
+        name="🥇 **Vencedor**",
+        value=f"{bot.get_user(vencedor).mention} ganhou **20 moedas!** 💰",
+        inline=False
+    )
+
+    embed.set_thumbnail(url=bot.get_user(vencedor).avatar.url if bot.get_user(vencedor).avatar else None)
+
+    await ctx.send(embed=embed)
+
 
 @bot.command()
 async def vitorias(ctx):
@@ -671,6 +656,7 @@ async def ranking(ctx):
     )
 
     await ctx.send(embed=embed)
+
 
 if __name__ == "__main__":
     token = os.environ.get("DISCORD_BOT_TOKEN")
