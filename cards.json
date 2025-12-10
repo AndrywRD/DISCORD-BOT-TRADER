@@ -25,6 +25,13 @@
       "ataque": 1000,
       "vida": 1500,
       "raridade": "Rara"
+    },
+    {
+      "nome": "EVOLUCAO",
+      "imagem": "imagens/EVOLUCAO.PNG",
+      "ataque": 666,
+      "vida": 999,
+      "raridade": "Comum"
     }
   ],
   "304389632735444993": [
@@ -55,6 +62,20 @@
       "ataque": 0,
       "vida": 0,
       "raridade": "Comum"
+    },
+    {
+      "nome": "DOUTOR BUGIGANGA",
+      "imagem": "imagens/DOUTORBUGIGANGA.png",
+      "ataque": 1000,
+      "vida": 1500,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "VEIO DA CORONA",
+      "imagem": "imagens/veiodacorona.png",
+      "ataque": 500,
+      "vida": 2100,
+      "raridade": "Rara"
     }
   ],
   "396353015302324226": [
