@@ -37,6 +37,41 @@
       "nome": "CACHORRO DESCONFIADO",
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
       "raridade": "Comum"
+    },
+    {
+      "nome": "ROGERIO",
+      "imagem": "imagens/ROGERIO.jpg",
+      "ataque": 2000,
+      "vida": 2000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "andryw",
+      "imagem": "imagens/ANDRYW_RUHAN.jpeg",
+      "ataque": 500,
+      "vida": -500,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "VEIO DA CORONA",
+      "imagem": "imagens/veiodacorona.png",
+      "ataque": 500,
+      "vida": 2100,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "VAMO PRA LUA GRU",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&",
+      "ataque": 1750,
+      "vida": 2200,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BOT DJ CLEITON RASTA",
+      "imagem": "imagens/CLEITONRASTA.png",
+      "ataque": 0,
+      "vida": 0,
+      "raridade": "Comum"
     }
   ],
   "304389632735444993": [
@@ -81,6 +116,32 @@
       "ataque": 500,
       "vida": 2100,
       "raridade": "Rara"
+    },
+    {
+      "nome": "BERINHEAD",
+      "imagem": "imagens/cabecao.jpg",
+      "ataque": 899,
+      "vida": 0,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "PUNHETAÇO",
+      "imagem": "imagens/HORADOPUNHETAO.png",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "EVOLUCAO",
+      "imagem": "imagens/EVOLUCAO.PNG",
+      "ataque": 666,
+      "vida": 999,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "FooooOOOooOoOlha",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&",
+      "ataque": 350,
+      "vida": 1300,
+      "raridade": "Comum"
     }
   ],
   "396353015302324226": [
@@ -191,6 +252,13 @@
       "ataque": 899,
       "vida": 0,
       "raridade": "Rara"
+    }
+  ],
+  "326687566285766657": [
+    {
+      "nome": "CACHORRO DESCONFIADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
+      "raridade": "Comum"
     }
   ]
 }
