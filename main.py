@@ -107,7 +107,7 @@ def card_already_exists(user_id: str, carta: dict, raridade: str) -> bool:
             card.get("raridade") == raridade):
             return True
     return False
-
+    
 
 raridades = {
     "Comum": 0.6,
@@ -129,7 +129,8 @@ cartas = {
         {"nome": "É MAFIA FAMILIA", "imagem": "imagens/MAFIA.PNG", "ataque": 500, "vida": 1000},
         {"nome": "EVOLUCAO", "imagem": "imagens/EVOLUCAO.PNG", "ataque": 666, "vida": 999},
         {"nome": "BOT DJ CLEITON RASTA", "imagem": "imagens/CLEITONRASTA.png", "ataque": 0, "vida": 0},
-        {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"}
+        {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"},
+        {"nome": "VAMO PRA LUA GRU", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&","ataque":1750 ,"vida": 2200}
     ],
     "Rara": [
         {"nome": "DOUTOR BUGIGANGA", "imagem": "imagens/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
