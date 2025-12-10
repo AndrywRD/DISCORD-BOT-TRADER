@@ -37,6 +37,7 @@ args = "Download Files"
 [[workflows.workflow]]
 name = "Discord Bot"
 author = "agent"
+mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
