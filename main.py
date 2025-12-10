@@ -350,7 +350,7 @@ async def on_member_join(member):
 
 async def _process_join_awards():
     CHECK_INTERVAL = 60
-    AWARD_SECONDS = 60 * 30
+    AWARD_SECONDS = 60 * 60
     while True:
         try:
             now = time.time()
