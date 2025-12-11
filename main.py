@@ -667,6 +667,157 @@ async def ranking(ctx):
 
     await ctx.send(embed=embed)
 
+CUSTO_FUSAO = 10
+RECOMPENSA_DUPLICATA = 50
+RARIDADES_ORDENADAS = ["Comum", "Rara", "Épica", "Lendária"]
+
+probabilidades_fusao = {
+    ("Comum", "Comum"): 0.7,
+    ("Rara", "Rara"): 0.6,
+    ("Épica", "Épica"): 0.45,
+}
+
+def obter_raridade_superior(raridade: str) -> Optional[str]:
+    if raridade not in RARIDADES_ORDENADAS:
+        return None
+    idx = RARIDADES_ORDENADAS.index(raridade)
+    if idx + 1 < len(RARIDADES_ORDENADAS):
+        return RARIDADES_ORDENADAS[idx + 1]
+    return None
+
+def escolher_cartas_raridade(cartas_usuario, raridade):
+    filtradas = [c for c in cartas_usuario if c.get("raridade") == raridade]
+    if len(filtradas) < 2:
+        return None
+    return random.sample(filtradas, 2)
+
+def possui_carta(inventario, carta):
+    return any(
+        c["nome"] == carta["nome"] and c["raridade"] == carta["raridade"]
+        for c in inventario
+    )
+
+
+# ================================================
+#              FUNÇÃO DE FUSÃO
+# ================================================
+def fusao(user_id: str, raridade: str):
+    raridade = raridade.capitalize()
+
+    if raridade not in ["Comum", "Rara", "Épica"]:
+        return {"erro": True, "msg": "❌ Raridade inválida. Use: Comum, Rara ou Épica."}
+
+    # carregar dados
+    saldos = _load_json(BALANCES_FILE)
+    inventarios = _load_json(CARDS_FILE)
+
+    saldo = saldos.get(user_id, 0)
+    cartas_usuario = inventarios.get(user_id, [])
+
+    if saldo < CUSTO_FUSAO:
+        return {"erro": True, "msg": f"❌ Você precisa de {CUSTO_FUSAO} moedas para fundir."}
+
+    escolhidas = escolher_cartas_raridade(cartas_usuario, raridade)
+
+    if not escolhidas:
+        return {"erro": True, "msg": f"❌ Você precisa de **2 cartas {raridade}** para fundir."}
+
+    carta1, carta2 = escolhidas
+
+    saldo -= CUSTO_FUSAO
+
+    prob = probabilidades_fusao.get((raridade, raridade), 0)
+    sucesso = random.random() < prob
+
+    if not sucesso:
+        # destrói cartas
+        cartas_usuario.remove(carta1)
+        cartas_usuario.remove(carta2)
+
+        inventarios[user_id] = cartas_usuario
+        saldos[user_id] = saldo
+        _save_json(CARDS_FILE, inventarios)
+        _save_json(BALANCES_FILE, saldos)
+
+        return {
+            "erro": False,
+            "sucesso": False,
+            "msg": "💥 **FUSÃO FALHOU!** As cartas foram destruídas."
+        }
+
+    # SUCESSO
+    nova_raridade = obter_raridade_superior(raridade)
+    carta_base = random.choice(cartas[nova_raridade])
+    nova_carta = dict(carta_base)
+    nova_carta["raridade"] = nova_raridade
+
+    # duplicata
+    duplicata = False
+    if possui_carta(cartas_usuario, nova_carta):
+        duplicata = True
+        saldo += RECOMPENSA_DUPLICATA
+    else:
+        cartas_usuario.remove(carta1)
+        cartas_usuario.remove(carta2)
+        cartas_usuario.append(nova_carta)
+
+    inventarios[user_id] = cartas_usuario
+    saldos[user_id] = saldo
+
+    _save_json(CARDS_FILE, inventarios)
+    _save_json(BALANCES_FILE, saldos)
+
+    return {
+        "erro": False,
+        "sucesso": True,
+        "carta": nova_carta,
+        "duplicata": duplicata,
+        "saldo": saldo
+    }
+    
+
+@bot.command(name="fusao")
+async def fusao_cmd(ctx, raridade: str = None):
+    if raridade is None:
+        await ctx.send("Use: `!fusao comum`, `!fusao rara`, `!fusao épica`")
+        return
+
+    user_id = str(ctx.author.id)
+    resultado = fusao(user_id, raridade)
+
+    if "erro" in resultado and resultado["erro"]:
+        await ctx.send(resultado["msg"])
+        return
+
+    # Se falhou
+    if not resultado.get("sucesso"):
+        await ctx.send(resultado["msg"])
+        return
+
+    carta = resultado["carta"]
+
+    embed = discord.Embed(
+        title=f"✨ FUSÃO BEM-SUCEDIDA!",
+        description=f"Você recebeu **{carta['nome']}**!\nRaridade: **{carta['raridade']}**",
+        color=discord.Color.purple()
+    )
+
+    embed.set_thumbnail(url=carta["imagem"])
+
+    atk = carta.get("ataque", "❓")
+    vida = carta.get("vida", "❓")
+
+    embed.add_field(name="Ataque", value=str(atk))
+    embed.add_field(name="Vida", value=str(vida))
+
+    if resultado["duplicata"]:
+        embed.add_field(
+            name="Duplicata",
+            value=f"Você já tinha essa carta! Recebeu **+{RECOMPENSA_DUPLICATA} moedas!**",
+            inline=False
+        )
+
+    await ctx.send(embed=embed)
 
 if __name__ == "__main__":
     token = os.environ.get("DISCORD_BOT_TOKEN")
