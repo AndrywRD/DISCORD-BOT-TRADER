@@ -181,13 +181,15 @@ cartas = {
 
 def sortear_carta():
     sorteio = random.random()
-    probabilidade_acumulada = 0
-    for raridade, probabilidade in raridades.items():
-        probabilidade_acumulada += probabilidade
-        if sorteio <= probabilidade_acumulada:
+    acumulado = 0
+
+    for raridade in ["Comum", "Rara", "Épica", "Lendária"]:
+        acumulado += raridades[raridade] / 100
+        if sorteio <= acumulado:
             carta = random.choice(cartas[raridade])
             return carta, raridade
     return None, None
+
 
 
 async def enviar_embed_com_imagem(ctx, embed, imagem):
