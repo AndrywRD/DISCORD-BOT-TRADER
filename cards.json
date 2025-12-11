@@ -192,6 +192,13 @@
       "nome": "CACHORRO DESCONFIADO",
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
       "raridade": "Comum"
+    },
+    {
+      "nome": "BEBE CHAPADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?ex=693b79ea&is=693a286a&hm=2044a2849e77170ef50da82f5fe62cc7ae960eccd43d7aaf5c8a25da5c483ad9&",
+      "ataque": 420,
+      "vida": 420,
+      "raridade": "Comum"
     }
   ],
   "396353015302324226": [
@@ -295,6 +302,13 @@
       "ataque": 3.14,
       "vida": 2200,
       "raridade": "Épica"
+    },
+    {
+      "nome": "ESPERMATOCHAPA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448501186855567381/ESPERMATOCHAPA.jpeg?ex=693b7d5a&is=693a2bda&hm=5d49e58af2491a4e503537f9fc450ea4cd03025b04d0695ba56aae4ba8d79b36&",
+      "ataque": 100,
+      "vida": 450,
+      "raridade": "Comum"
     }
   ],
   "926285996134375515": [
