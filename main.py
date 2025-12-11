@@ -796,30 +796,30 @@ async def fusao_cmd(ctx, raridade: str = None):
         await ctx.send(resultado["msg"])
         return
 
-    carta = resultado["carta"]
-
+    img = carta["imagem"]
+    
     embed = discord.Embed(
-        title=f"✨ FUSÃO BEM-SUCEDIDA!",
-        description=f"Você recebeu **{carta['nome']}**!\nRaridade: **{carta['raridade']}**",
-        color=discord.Color.purple()
+        title=f"✨ Carta Fundida: {carta['nome']}",
+        description=f"**Raridade:** {raridade}\n"
+                    f"**ATK:** {carta.get('ataque', '?')}\n"
+                    f"**VIDA:** {carta.get('vida', '?')}",
+        color=discord.Color.gold()
     )
+    
+    # Se for URL http/https → pode colocar no thumbnail direto
+    if isinstance(img, str) and img.startswith("http"):
+        embed.set_thumbnail(url=img)
+        await ctx.send(embed=embed)
+    
+    # Se for imagem local → mandar como arquivo
+    else:
+        try:
+            file = discord.File(img, filename="carta.png")
+            embed.set_thumbnail(url="attachment://carta.png")
+            await ctx.send(embed=embed, file=file)
+        except Exception as e:
+            await ctx.send(f"⚠ Erro ao carregar imagem local: `{e}`\nCarta: **{carta['nome']}**")
 
-    embed.set_thumbnail(url=carta["imagem"])
-
-    atk = carta.get("ataque", "❓")
-    vida = carta.get("vida", "❓")
-
-    embed.add_field(name="Ataque", value=str(atk))
-    embed.add_field(name="Vida", value=str(vida))
-
-    if resultado["duplicata"]:
-        embed.add_field(
-            name="Duplicata",
-            value=f"Você já tinha essa carta! Recebeu **+{RECOMPENSA_DUPLICATA} moedas!**",
-            inline=False
-        )
-
-    await ctx.send(embed=embed)
 
 if __name__ == "__main__":
     token = os.environ.get("DISCORD_BOT_TOKEN")
