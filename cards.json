@@ -22,13 +22,6 @@
       "raridade": "Épica"
     },
     {
-      "nome": "VEIO DA CORONA",
-      "imagem": "imagens/veiodacorona.png",
-      "ataque": 500,
-      "vida": 2100,
-      "raridade": "Rara"
-    },
-    {
       "nome": "CHIQUINHA CABELUDA",
       "imagem": "imagens/chiquinha.png",
       "ataque": 250,
@@ -52,13 +45,6 @@
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448499429832130672/FODEU_KKKKK.jpeg?",
       "ataque": 1200,
       "vida": 879,
-      "raridade": "Rara"
-    },
-    {
-      "nome": "FEIJAO COM FARINHA",
-      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg",
-      "ataque": 90,
-      "vida": 2005,
       "raridade": "Rara"
     },
     {
@@ -114,6 +100,39 @@
       "ataque": 350,
       "vida": 1300,
       "raridade": "Comum"
+    },
+    {
+      "nome": "PUNHETAÇO",
+      "imagem": "imagens/HORADOPUNHETAO.png",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "TECNICO EM ELETRONICA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg",
+      "ataque": 3.14,
+      "vida": 2200,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "PUNHETAO POCANDO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500084345016390/PUNHETAO_POCANDO.jpeg",
+      "ataque": 2090,
+      "vida": 602,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "VAMO PRA LUA GRU",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg",
+      "ataque": 1750,
+      "vida": 2200,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "FEIJAO COM FARINHA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg",
+      "ataque": 90,
+      "vida": 2005,
+      "raridade": "Rara"
     }
   ],
   "304389632735444993": [
