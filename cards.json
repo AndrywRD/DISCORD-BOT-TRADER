@@ -48,24 +48,10 @@
       "raridade": "Rara"
     },
     {
-      "nome": "É MAFIA FAMILIA",
-      "imagem": "imagens/MAFIA.PNG",
-      "ataque": 500,
-      "vida": 1000,
-      "raridade": "Comum"
-    },
-    {
       "nome": "EVOLUCAO",
       "imagem": "imagens/EVOLUCAO.PNG",
       "ataque": 666,
       "vida": 999,
-      "raridade": "Comum"
-    },
-    {
-      "nome": "CHAPADO PRATEADO",
-      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496992887242923/CHAPADO_PRATEADO.jpeg?",
-      "ataque": 1800,
-      "vida": 1892,
       "raridade": "Comum"
     },
     {
@@ -132,6 +118,13 @@
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg",
       "ataque": 90,
       "vida": 2005,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "PERDOA O PAI",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448494096351232191/PERDOA_O_PAI.jpeg",
+      "ataque": 859,
+      "vida": 1911,
       "raridade": "Rara"
     }
   ],
