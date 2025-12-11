@@ -72,6 +72,32 @@
       "ataque": 0,
       "vida": 0,
       "raridade": "Comum"
+    },
+    {
+      "nome": "CHIQUINHA CABELUDA",
+      "imagem": "imagens/chiquinha.png",
+      "ataque": 250,
+      "vida": 4000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "NOIA DO K9",
+      "imagem": "imagens/noiak9.png",
+      "raridade": "Épica"
+    },
+    {
+      "nome": "FooooOOOooOoOlha",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&",
+      "ataque": 350,
+      "vida": 1300,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BEBE CHAPADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?ex=693b79ea&is=693a286a&hm=2044a2849e77170ef50da82f5fe62cc7ae960eccd43d7aaf5c8a25da5c483ad9&",
+      "ataque": 420,
+      "vida": 420,
+      "raridade": "Comum"
     }
   ],
   "304389632735444993": [
@@ -141,6 +167,30 @@
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&",
       "ataque": 350,
       "vida": 1300,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "VAMO PRA LUA GRU",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&",
+      "ataque": 1750,
+      "vida": 2200,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "NOIA DO K9",
+      "imagem": "imagens/noiak9.png",
+      "raridade": "Épica"
+    },
+    {
+      "nome": "TECNICO EM ELETRONICA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&",
+      "ataque": 3.14,
+      "vida": 2200,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "CACHORRO DESCONFIADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
       "raridade": "Comum"
     }
   ],
@@ -224,6 +274,27 @@
       "ataque": 1750,
       "vida": 2200,
       "raridade": "Comum"
+    },
+    {
+      "nome": "SMURF RABUDO ATIÇANDO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg?ex=693b1885&is=6939c705&hm=28717eada1f7f14ba02c7c5648a1b7ff86c9de76539bf355806a67f29e1ad45e&",
+      "ataque": 1000,
+      "vida": 1669,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "CHIQUINHA CABELUDA",
+      "imagem": "imagens/chiquinha.png",
+      "ataque": 250,
+      "vida": 4000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "TECNICO EM ELETRONICA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&",
+      "ataque": 3.14,
+      "vida": 2200,
+      "raridade": "Épica"
     }
   ],
   "926285996134375515": [
@@ -258,6 +329,116 @@
     {
       "nome": "CACHORRO DESCONFIADO",
       "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BERINHEAD",
+      "imagem": "imagens/cabecao.jpg",
+      "ataque": 899,
+      "vida": 0,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "NOIA DO K9",
+      "imagem": "imagens/noiak9.png",
+      "raridade": "Épica"
+    },
+    {
+      "nome": "VAMO PRA LUA GRU",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&",
+      "ataque": 1750,
+      "vida": 2200,
+      "raridade": "Comum"
+    }
+  ],
+  "1119604297634693192": [
+    {
+      "nome": "BOT DJ CLEITON RASTA",
+      "imagem": "imagens/CLEITONRASTA.png",
+      "ataque": 0,
+      "vida": 0,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "SMURF RABUDO ATIÇANDO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg?ex=693b1885&is=6939c705&hm=28717eada1f7f14ba02c7c5648a1b7ff86c9de76539bf355806a67f29e1ad45e&",
+      "ataque": 1000,
+      "vida": 1669,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "DOUTOR BUGIGANGA",
+      "imagem": "imagens/DOUTORBUGIGANGA.png",
+      "ataque": 1000,
+      "vida": 1500,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "VAMO PRA LUA GRU",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&",
+      "ataque": 1750,
+      "vida": 2200,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BERINHEAD",
+      "imagem": "imagens/cabecao.jpg",
+      "ataque": 899,
+      "vida": 0,
+      "raridade": "Rara"
+    },
+    {
+      "nome": "EVOLUCAO",
+      "imagem": "imagens/EVOLUCAO.PNG",
+      "ataque": 666,
+      "vida": 999,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "andryw",
+      "imagem": "imagens/ANDRYW_RUHAN.jpeg",
+      "ataque": 500,
+      "vida": -500,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "CACHORRO DESCONFIADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&",
+      "raridade": "Comum"
+    },
+    {
+      "nome": "TECNICO EM ELETRONICA",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&",
+      "ataque": 3.14,
+      "vida": 2200,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "CHIQUINHA CABELUDA",
+      "imagem": "imagens/chiquinha.png",
+      "ataque": 250,
+      "vida": 4000,
+      "raridade": "Épica"
+    },
+    {
+      "nome": "FooooOOOooOoOlha",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&",
+      "ataque": 350,
+      "vida": 1300,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "CHAPADO PRATEADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496992887242923/CHAPADO_PRATEADO.jpeg?ex=693b7972&is=693a27f2&hm=b816b8ac5ab14381b11cdab5a2ebb282600bc78528a37d32f1d1cb2fb3ef9d45&",
+      "ataque": 1800,
+      "vida": 1892,
+      "raridade": "Comum"
+    },
+    {
+      "nome": "BEBE CHAPADO",
+      "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?ex=693b79ea&is=693a286a&hm=2044a2849e77170ef50da82f5fe62cc7ae960eccd43d7aaf5c8a25da5c483ad9&",
+      "ataque": 420,
+      "vida": 420,
       "raridade": "Comum"
     }
   ]
