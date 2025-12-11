@@ -147,22 +147,32 @@ cartas = {
         {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"},
         {"nome": "CACHORRO DESCONFIADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg?ex=693b1ac3&is=6939c943&hm=33132e639440c34df4067123dc016aed3efcec9934ab05dc44887d1d16d3da4c&"},
         {"nome": "VAMO PRA LUA GRU", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg?ex=693b166f&is=6939c4ef&hm=46729310369cd3e1b268dd2c312037f8723ddf7bd2c174f275eb68fd8a94ef7d&","ataque": 1750 ,"vida": 2200},
-        {"nome": "FooooOOOooOoOlha", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&","ataque": 350 ,"vida": 1300}
+        {"nome": "ABROBA COM LEITE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448495068653551658/ABROBA_COM_LEITE.jpeg?ex=693b77a8&is=693a2628&hm=13e51bf4a531956940ce900601b917f7ee71b0d718a074c4f3f8f101f3fbe263&","ataque": 1324,"vida": 900},
+        {"nome": "FooooOOOooOoOlha", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448396099768553542/fooooOOOooOoOlha.jpeg?ex=693b1b7c&is=6939c9fc&hm=509c9595b61a329e8d85d56dba9829af94919dd09dd08fd70dde335ff76fb7a6&","ataque": 350 ,"vida": 1300},
+        {"nome": "CHAPADO PRATEADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496992887242923/CHAPADO_PRATEADO.jpeg?ex=693b7972&is=693a27f2&hm=b816b8ac5ab14381b11cdab5a2ebb282600bc78528a37d32f1d1cb2fb3ef9d45&", "ataque": 1800, "vida": 1892},
+        {"nome": "ESPERMATOCHAPA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448501186855567381/ESPERMATOCHAPA.jpeg?ex=693b7d5a&is=693a2bda&hm=5d49e58af2491a4e503537f9fc450ea4cd03025b04d0695ba56aae4ba8d79b36&", "ataque": 100, "vida": 450},
+        {"nome": "BEBE CHAPADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?ex=693b79ea&is=693a286a&hm=2044a2849e77170ef50da82f5fe62cc7ae960eccd43d7aaf5c8a25da5c483ad9&", "ataque": 420, "vida": 420}
     ],
     "Rara": [
         {"nome": "DOUTOR BUGIGANGA", "imagem": "imagens/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
         {"nome": "BERINHEAD", "imagem": "imagens/cabecao.jpg", "ataque": 899, "vida": 0},
+        {"nome": "FODEU KKKKKKK", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448499429832130672/FODEU_KKKKK.jpeg?ex=693b7bb7&is=693a2a37&hm=7ab4c5f39577dbdf3106407d6da50583c5d80440ae56faa50e4198563e5e206a&", "ataque": 1200, "vida": 879},
         {"nome": "VEIO DA CORONA", "imagem": "imagens/veiodacorona.png", "ataque": 500, "vida": 2100},
-        {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg?ex=693b1885&is=6939c705&hm=28717eada1f7f14ba02c7c5648a1b7ff86c9de76539bf355806a67f29e1ad45e&","ataque": 1000 ,"vida": 1669}
+        {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg?ex=693b1885&is=6939c705&hm=28717eada1f7f14ba02c7c5648a1b7ff86c9de76539bf355806a67f29e1ad45e&","ataque": 1000 ,"vida": 1669},
+        {"nome": "PERDOA O PAI", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448494096351232191/PERDOA_O_PAI.jpeg?ex=693b76c0&is=693a2540&hm=5a4ef324f4a297610aad6e5b7312c3d3b6670b111abb2d5d0e3a42b328670d06&","ataque": 859 ,"vida": 1911},
+        {"nome": "FEIJAO COM FARINHA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg?ex=693b78a7&is=693a2727&hm=df1dbdda3a5bc4c9b1ee52e87a4eee1eec86f05a523031d8b0a706e664ba9385&","ataque": 90,"vida": 2005}
     ],
     "Épica": [
         {"nome": "ROGERIO", "imagem": "imagens/ROGERIO.jpg", "ataque": 2000, "vida": 2000},
         {"nome": "CHIQUINHA CABELUDA", "imagem": "imagens/chiquinha.png", "ataque": 250, "vida": 4000},
+        {"nome": "PUNHETAO POCANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500084345016390/PUNHETAO_POCANDO.jpeg?ex=693b7c53&is=693a2ad3&hm=1fab0e0588e4ef66dd1cd008aac9bf8f118149c54a6956e6b8b302e49310e927&", "ataque": 2090, "vida": 602},
         {"nome": "NOIA DO K9", "imagem": "imagens/noiak9.png"},
-        {"nome": "TECNICO EM ELETRONICA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&", "ataque": 3.14, "vida": 2200}
+        {"nome": "TECNICO EM ELETRONICA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg?ex=693b197f&is=6939c7ff&hm=e8d2f2ca612a9ab31fe531680db7f81fd0ceefd8032611f42de8bb3880d5c9e0&", "ataque": 3.14, "vida": 2200},
+        {"nome": "PRIME BELO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448498026921594990/PRIME_BELO.jpeg?ex=693b7a69&is=693a28e9&hm=060d33a7a518fd550c50f8cba0f5dcc55e101abac8c921fbce900484b22f2207&", "ataque": 2100, "vida": 1720}
     ],
     "Lendária": [
         {"nome": "NARUTO MACONHEIRO", "imagem": "imagens/NARUTOMACONHEIRO.png", "ataque": 2100, "vida": 1800},
+        {"nome": "BRUNO HENRIQUE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500673829277757/BRUNO_HENRIQUE.jpeg?ex=693b7ce0&is=693a2b60&hm=07555ab1c98daca0fe720f21e158fcf93de630054857aa98ee6497618ba09bf4&", "ataque": 3100, "vida": 2100},
         {"nome": "CR7 AURA+EGO", "imagem": "imagens/cr7.png", "ataque": 3500, "vida": 0},
         {"nome": "MACONHESCO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448394810347229296/MACONHESCO.jpeg?ex=693b1a48&is=6939c8c8&hm=5de3e6f91a975e8c434b53c333048d8ab937af028092030d56788af595ee88d4&", "ataque": 1420, "vida": 3333}
     ]
