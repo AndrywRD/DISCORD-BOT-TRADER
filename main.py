@@ -125,10 +125,10 @@ def escolher_5_aleatorias(lista):
 
 
 raridades = {
-    "Comum": 0.6,
-    "Rara": 0.3,
-    "Épica": 0.95,
-    "Lendária": 0.03
+    "Comum": 60,
+    "Rara": 30,
+    "Épica": 9,
+    "Lendária": 1
 }
 
 EMOJI_RARITY = {
