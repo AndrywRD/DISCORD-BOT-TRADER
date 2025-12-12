@@ -140,11 +140,11 @@ EMOJI_RARITY = {
 
 cartas = {
     "Comum": [
-        {"nome": "andryw", "imagem": "imagens/ANDRYW_RUHAN.jpeg", "ataque": 500, "vida": -500},
-        {"nome": "É MAFIA FAMILIA", "imagem": "imagens/MAFIA.PNG", "ataque": 500, "vida": 1000},
+        {"nome": "andryw", "imagem": "https://cdn.discordapp.com/attachments/785317706274308117/1448844425160556586/ANDRYW_RUHAN.jpeg", "ataque": 500, "vida": -500},
+        {"nome": "É MAFIA FAMILIA", "imagem": "https://cdn.discordapp.com/attachments/785317706274308117/1448844530081337567/MAFIA.PNG", "ataque": 500, "vida": 1000},
         {"nome": "EVOLUCAO", "imagem": "imagens/EVOLUCAO.PNG", "ataque": 666, "vida": 999},
-        {"nome": "BOT DJ CLEITON RASTA", "imagem": "imagens/CLEITONRASTA.png", "ataque": 0, "vida": 0},
-        {"nome": "PUNHETAÇO", "imagem": "imagens/HORADOPUNHETAO.png"},
+        {"nome": "BOT DJ CLEITON RASTA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448842573824135320/BOT_DJ_CLEITON_RASTA.jpeg", "ataque": 0, "vida": 0},
+        {"nome": "PUNHETAÇO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448837360572825681/HORADOPUNHETAO.png"},
         {"nome": "CACHORRO DESCONFIADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg"},
         {"nome": "VAMO PRA LUA GRU", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg","ataque": 1750 ,"vida": 2200},
         {"nome": "ABROBA COM LEITE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448495068653551658/ABROBA_COM_LEITE.jpeg?","ataque": 1324,"vida": 900},
@@ -154,26 +154,26 @@ cartas = {
         {"nome": "BEBE CHAPADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?", "ataque": 420, "vida": 420}
     ],
     "Rara": [
-        {"nome": "DOUTOR BUGIGANGA", "imagem": "imagens/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
+        {"nome": "DOUTOR BUGIGANGA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448837175507554315/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
         {"nome": "BERINHEAD", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448826182496682097/BERINHEAD.jpeg", "ataque": 899, "vida": 0},
         {"nome": "FODEU KKKKKKK", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448499429832130672/FODEU_KKKKK.jpeg?", "ataque": 1200, "vida": 879},
-        {"nome": "VEIO DA CORONA", "imagem": "imagens/veiodacorona.png", "ataque": 500, "vida": 2100},
+        {"nome": "VEIO DA CORONA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448836977259450388/veiodacorona.png", "ataque": 500, "vida": 2100},
         {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg","ataque": 1000 ,"vida": 1669},
         {"nome": "PERDOA O PAI", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448494096351232191/PERDOA_O_PAI.jpeg","ataque": 859 ,"vida": 1911},
         {"nome": "FEIJAO COM FARINHA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg","ataque": 90,"vida": 2005}
     ],
     "Épica": [
-        {"nome": "ROGERIO", "imagem": "imagens/ROGERIO.jpg", "ataque": 2000, "vida": 2000},
+        {"nome": "ROGERIO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448836870959005797/ROGERIO.jpg", "ataque": 2000, "vida": 2000},
         {"nome": "CHIQUINHA CABELUDA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448827135870369832/CHIQUINHA_CABELUDA.jpeg", "ataque": 250, "vida": 3000},
         {"nome": "PUNHETAO POCANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500084345016390/PUNHETAO_POCANDO.jpeg", "ataque": 2090, "vida": 602},
-        {"nome": "NOIA DO K9", "imagem": "imagens/noiak9.png"},
+        {"nome": "NOIA DO K9", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448836448001331265/noiak9.png", "ataque": 0, "vida": 0},
         {"nome": "TECNICO EM ELETRONICA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg", "ataque": 3.14, "vida": 2200},
         {"nome": "PRIME BELO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448498026921594990/PRIME_BELO.jpeg", "ataque": 2100, "vida": 1720}
     ],
     "Lendária": [
-        {"nome": "NARUTO MACONHEIRO", "imagem": "imagens/NARUTOMACONHEIRO.png", "ataque": 2100, "vida": 1800},
+        {"nome": "NARUTO MACONHEIRO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448836302781943878/NARUTOMACONHEIRO.png", "ataque": 2100, "vida": 1800},
         {"nome": "BRUNO HENRIQUE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500673829277757/BRUNO_HENRIQUE.jpeg", "ataque": 3100, "vida": 2100},
-        {"nome": "CR7 AURA+EGO", "imagem": "imagens/cr7.png", "ataque": 3500, "vida": 0},
+        {"nome": "CR7 AURA+EGO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448835533206720727/cr7.png", "ataque": 3500, "vida": 500},
         {"nome": "MACONHESCO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448394810347229296/MACONHESCO.jpeg", "ataque": 1420, "vida": 3333}
     ]
 }
