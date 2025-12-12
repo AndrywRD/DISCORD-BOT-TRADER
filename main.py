@@ -166,7 +166,7 @@ cartas = {
         {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg","ataque": 1000 ,"vida": 1669},
         {"nome": "PERDOA O PAI", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448494096351232191/PERDOA_O_PAI.jpeg","ataque": 859,"vida": 1911},
         {"nome": "FRED MERCURY PRATEADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448865899162636444/FRED_MERCURY_PRATEADO.jpeg","ataque": 1283,"vida": 2304},
-        {"nome": "MANUAL IMUNDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448858951683674132/MANUAL_IMUNDO.jpeg","ataque": 3255,"vida": 0001},
+        {"nome": "MANUAL IMUNDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448858951683674132/MANUAL_IMUNDO.jpeg","ataque": 3255,"vida": 1},
         {"nome": "FEIJAO COM FARINHA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448496138998255798/FEIJAO_COM_FARINHA.jpeg","ataque": 90,"vida": 2005}
     ],
     "Épica": [
@@ -183,7 +183,7 @@ cartas = {
         {"nome": "NARUTO MACONHEIRO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448836302781943878/NARUTOMACONHEIRO.png", "ataque": 2100, "vida": 1800},
         {"nome": "BRUNO HENRIQUE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500673829277757/BRUNO_HENRIQUE.jpeg", "ataque": 3100, "vida": 2100},
         {"nome": "CR7 AURA+EGO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448835533206720727/cr7.png", "ataque": 3500, "vida": 500},
-        {"nome": "REALRICH", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448858439509086389/REALRICH.jpeg", "ataque": 7777, "vida": 0001},
+        {"nome": "REALRICH", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448858439509086389/REALRICH.jpeg", "ataque": 7777, "vida": 1},
         {"nome": "ROCK PORRAAAAA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448860061912006877/ROCK_PORRAAAAAA.jpeg", "ataque": 6666, "vida": 1000},
         {"nome": "MACONHESCO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448394810347229296/MACONHESCO.jpeg", "ataque": 1420, "vida": 3333}
     ]
