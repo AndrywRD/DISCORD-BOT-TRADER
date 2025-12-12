@@ -155,7 +155,7 @@ cartas = {
     ],
     "Rara": [
         {"nome": "DOUTOR BUGIGANGA", "imagem": "imagens/DOUTORBUGIGANGA.png", "ataque": 1000, "vida": 1500},
-        {"nome": "BERINHEAD", "imagem": "imagens/cabecao.jpg", "ataque": 899, "vida": 0},
+        {"nome": "BERINHEAD", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448826182496682097/BERINHEAD.jpeg", "ataque": 899, "vida": 0},
         {"nome": "FODEU KKKKKKK", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448499429832130672/FODEU_KKKKK.jpeg?", "ataque": 1200, "vida": 879},
         {"nome": "VEIO DA CORONA", "imagem": "imagens/veiodacorona.png", "ataque": 500, "vida": 2100},
         {"nome": "SMURF RABUDO ATIÇANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448392918514536448/SMURF_RABUDO_ATICANDO.jpeg","ataque": 1000 ,"vida": 1669},
@@ -164,7 +164,7 @@ cartas = {
     ],
     "Épica": [
         {"nome": "ROGERIO", "imagem": "imagens/ROGERIO.jpg", "ataque": 2000, "vida": 2000},
-        {"nome": "CHIQUINHA CABELUDA", "imagem": "imagens/chiquinha.png", "ataque": 250, "vida": 4000},
+        {"nome": "CHIQUINHA CABELUDA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448827135870369832/CHIQUINHA_CABELUDA.jpeg", "ataque": 250, "vida": 3000},
         {"nome": "PUNHETAO POCANDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448500084345016390/PUNHETAO_POCANDO.jpeg", "ataque": 2090, "vida": 602},
         {"nome": "NOIA DO K9", "imagem": "imagens/noiak9.png"},
         {"nome": "TECNICO EM ELETRONICA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448393964989452298/TECNICO_EM_ELETRONICA_1.jpeg", "ataque": 3.14, "vida": 2200},
