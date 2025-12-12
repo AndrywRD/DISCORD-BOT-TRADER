@@ -674,9 +674,9 @@ RECOMPENSA_DUPLICATA = 50
 RARIDADES_ORDENADAS = ["Comum", "Rara", "Épica", "Lendária"]
 
 probabilidades_fusao = {
-    ("Comum", "Comum"): 0.7,
-    ("Rara", "Rara"): 0.6,
-    ("Épica", "Épica"): 0.45,
+    ("Comum", "Comum"): 0.45,
+    ("Rara", "Rara"): 0.35,
+    ("Épica", "Épica"): 0.15,
 }
 
 def obter_raridade_superior(raridade: str) -> Optional[str]:
