@@ -155,7 +155,7 @@ cartas = {
         {"nome": "MC BRINQUEDO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448860449260175460/MC_BRINQUEDO.jpeg", "ataque": 500, "vida": 1500},
         {"nome": "DJ ANDRE MARQUES", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448861400993632427/DJ_ANDRE_MARQUES.jpeg", "ataque": 1675, "vida": 1827},
         {"nome": "CE ENTENDEU VEI?", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448866317020037352/ce_entendeu_vei_.jpeg", "ataque": 1249, "vida": 1233},
-        {"nome": "DIGIMON AGIOTA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1450931276763889758/DIGIMON_AGIOTA.jpeg", "ataque": 1548, "vida": 0765},
+        {"nome": "DIGIMON AGIOTA", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1450931276763889758/DIGIMON_AGIOTA.jpeg", "ataque": 1548, "vida": 765},
         {"nome": "M M SAFADO KKKKKK", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448862042571407371/M_M_SAFADO_KKKKKK.jpeg", "ataque": 1892, "vida": 760},
         {"nome": "BEBE CHAPADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448497494173679789/BEBE_CHAPADO_.jpeg?", "ataque": 420, "vida": 420}
     ],
