@@ -133,6 +133,14 @@ def escolher_5_aleatorias(lista):
         return lista  # se tiver 5 ou menos cartas, usa todas
     return random.sample(lista, 5)
 
+# MULTIPLICADORES DA RARIDADE DAS CARTAS
+MULTIPLICADORES = {
+    "Comum": 1.05,
+    "Rara": 1.10,
+    "Épica": 1.20,
+    "Lendária": 1.30
+}
+
 # CARGOS DO SERVIDOR PARA O SISTEMA DE RANKINGS
 
 ROLE_TOP_WINS = "👑 Campeão Supremo"
@@ -619,135 +627,149 @@ async def saldo(ctx):
 # ---------------------------------------------------------
 # SISTEMA DE DUELOS
 # ---------------------------------------------------------
-duelos_pendentes = {}   # {desafiado_id: desafiante_id}
-duelos_em_andamento = {}  # {user_id: {"oponente": id, "cartas": []}}
+def calcular_multiplicador(cartas):
+    mult = 1.0
+    for c in cartas:
+        rar = c.get("raridade")
+        mult += MULTIPLICADORES.get(rar, 0)
+    return round(mult, 2)
 
-def calcular_total(cartas_escolhidas):
-    total_atk = 0
-    total_vida = 0
-    for c in cartas_escolhidas:
-        total_atk += int(c.get("ataque", 0))
-        total_vida += int(c.get("vida", 0))
-    return total_atk, total_vida, total_atk + total_vida
-
+duelos_pendentes = {}   # {desafiado_id: {"desafiante": id, "aposta": valor}}
 
 @bot.command()
-async def duelar(ctx, oponente: discord.Member):
+async def duelar(ctx, oponente: discord.Member, aposta: int):
+    if aposta < 1:
+        return await ctx.send("❌ A aposta mínima é **1 moeda**.")
+
+    if get_balance(str(ctx.author.id)) < aposta:
+        return await ctx.send("❌ Você não tem moedas suficientes para apostar isso.")
+
     if oponente.bot:
-        return await ctx.send("❌ Você não pode duelar contra bots!")
+        return await ctx.send("❌ Você não pode duelar contra bots.")
 
     if oponente.id == ctx.author.id:
-        return await ctx.send("❌ Você não pode se desafiar!")
+        return await ctx.send("❌ Você não pode se desafiar.")
 
-    duelos_pendentes[oponente.id] = ctx.author.id
+    duelos_pendentes[oponente.id] = {
+        "desafiante": ctx.author.id,
+        "aposta": aposta
+    }
 
     embed = discord.Embed(
-        title="⚔️ Novo Desafio de Duelo!",
+        title="⚔️ Novo Duelo!",
         description=(
-            f"{oponente.mention}, você foi desafiado por **{ctx.author.mention}**!\n\n"
-            f"Para aceitar, use:\n👉 **!aceitar @{ctx.author.display_name}**"
+            f"{oponente.mention}, você foi desafiado por **{ctx.author.mention}**!\n"
+            f"Aposta: **{aposta} moedas** 💰\n\n"
+            f"Use `!aceitar @{ctx.author.display_name} {aposta}` para aceitar."
         ),
         color=discord.Color.orange()
     )
-
     embed.set_thumbnail(url=ctx.author.avatar.url if ctx.author.avatar else None)
 
     await ctx.send(embed=embed)
 
+@duelar.error
+async def duelar_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(
+            "❌ Uso correto:\n"
+            "`!duelar @oponente <valor_da_aposta>`\n\n"
+            "Exemplo: `!duelar @Joao 250`"
+        )
+
 
 @bot.command()
 async def aceitar(ctx, desafiante: discord.Member):
-    user_id = ctx.author.id
+    dados = duelos_pendentes.get(ctx.author.id)
 
-    if user_id not in duelos_pendentes:
-        return await ctx.send("❌ Você não foi desafiado ou o duelo expirou.")
+    if not dados:
+        return await ctx.send("❌ Você não foi desafiado.")
 
-    if duelos_pendentes[user_id] != desafiante.id:
-        return await ctx.send("❌ Este desafio não é para você.")
+    if dados["desafiante"] != desafiante.id:
+        return await ctx.send("❌ Esse desafio não é seu.")
 
-    del duelos_pendentes[user_id]
+    aposta = dados["aposta"]
 
-    # Verifica moedas
-    if get_balance(str(ctx.author.id)) < 10:
-        return await ctx.send(f"💸 {ctx.author.mention} não tem moedas suficientes (mínimo 10).")
+    if get_balance(str(ctx.author.id)) < aposta:
+        return await ctx.send("❌ Você não tem moedas suficientes.")
 
-    if get_balance(str(desafiante.id)) < 10:
-        return await ctx.send(f"💸 {desafiante.mention} não tem moedas suficientes (mínimo 10).")
+    if get_balance(str(desafiante.id)) < aposta:
+        return await ctx.send("❌ O desafiante não tem moedas suficientes.")
 
-    deduct_balance(str(ctx.author.id), 10)
-    deduct_balance(str(desafiante.id), 10)
+    # desconta aposta
+    deduct_balance(str(ctx.author.id), aposta)
+    deduct_balance(str(desafiante.id), aposta)
 
-    add_spent(str(ctx.author.id), 10)
-    add_spent(str(desafiante.id), 10)
+    # registra gasto
+    add_spent(str(ctx.author.id), aposta)
+    add_spent(str(desafiante.id), aposta)
 
-    cartas_desafiante = get_user_cards(str(desafiante.id))
-    cartas_desafiado = get_user_cards(str(ctx.author.id))
+    cartas_a = escolher_5_aleatorias(get_user_cards(str(desafiante.id)))
+    cartas_b = escolher_5_aleatorias(get_user_cards(str(ctx.author.id)))
 
+    atk_a, vida_a, mult_a, total_a = calcular_total_com_mult(cartas_a)
+    atk_b, vida_b, mult_b, total_b = calcular_total_com_mult(cartas_b)
 
-    if len(cartas_desafiante) == 0:
-        return await ctx.send(f"{desafiante.mention} não possui cartas!")
-    if len(cartas_desafiado) == 0:
-        return await ctx.send(f"{ctx.author.mention} não possui cartas!")
-
-    escolhidas_desafiante = escolher_5_aleatorias(cartas_desafiante)
-    escolhidas_desafiado = escolher_5_aleatorias(cartas_desafiado)
-
-    atk_a, vida_a, total_a = calcular_total(escolhidas_desafiante)
-    atk_b, vida_b, total_b = calcular_total(escolhidas_desafiado)
-
-    # Determina vencedor
+    del duelos_pendentes[ctx.author.id]
+    
     if total_a > total_b:
-        vencedor = desafiante.id
-        perdedor = ctx.author.id
+        vencedor = desafiante
     elif total_b > total_a:
-        vencedor = ctx.author.id
-        perdedor = desafiante.id
+        vencedor = ctx.author
     else:
         vencedor = None
 
-    # Empate
-    if vencedor is None:
-        embed = discord.Embed(
-            title="⚔️ Duelo Finalizado!",
-            description="O duelo terminou em **EMPATE**! Nenhum jogador ganhou moedas.",
-            color=discord.Color.greyple()
-        )
-        return await ctx.send(embed=embed)
-
-    # Premiação
-    add_balance(str(vencedor), 20)
-    add_win(str(vencedor))
-
-    jogadorA = desafiante
-    jogadorB = ctx.author
-
-    def formatar_cartas(lista):
-        return "\n".join([f"• {c.get('nome')} ({c.get('ataque','?')} ATK / {c.get('vida','?')} VIDA)" for c in lista])
-
     embed = discord.Embed(
-        title="🏆 Resultado do Duelo",
+        title="⚔️ Resultado do Duelo",
         color=discord.Color.gold()
     )
 
+    def listar(cartas):
+        return "\n".join(
+            f"• {c['nome']} ({c['raridade']})"
+            for c in cartas
+        )
+
     embed.add_field(
-        name=f"🟥 {jogadorA.display_name} — **{total_a} pontos**",
-        value=formatar_cartas(escolhidas_desafiante),
+        name=f"🟥 {desafiante.display_name}",
+        value=(
+            f"{listar(cartas_a)}\n"
+            f"⚔️ ATK+VIDA: {atk_a + vida_a}\n"
+            f"📈 Mult: x{mult_a}\n"
+            f"🔥 Total: **{total_a}**"
+        ),
         inline=False
     )
 
     embed.add_field(
-        name=f"🟦 {jogadorB.display_name} — **{total_b} pontos**",
-        value=formatar_cartas(escolhidas_desafiado),
+        name=f"🟦 {ctx.author.display_name}",
+        value=(
+            f"{listar(cartas_b)}\n"
+            f"⚔️ ATK+VIDA: {atk_b + vida_b}\n"
+            f"📈 Mult: x{mult_b}\n"
+            f"🔥 Total: **{total_b}**"
+        ),
         inline=False
     )
 
-    embed.add_field(
-        name="🥇 **Vencedor**",
-        value=f"{bot.get_user(vencedor).mention} ganhou **20 moedas!** 💰",
-        inline=False
-    )
+    if vencedor:
+        premio = aposta * 2
+        add_balance(str(vencedor.id), premio)
+        add_win(str(vencedor.id))
 
-    embed.set_thumbnail(url=bot.get_user(vencedor).avatar.url if bot.get_user(vencedor).avatar else None)
+        embed.add_field(
+            name="🏆 Vencedor",
+            value=f"{vencedor.mention} ganhou **{premio} moedas** 💰",
+            inline=False
+        )
+    else:
+        add_balance(str(ctx.author.id), aposta)
+        add_balance(str(desafiante.id), aposta)
+        embed.add_field(
+            name="🤝 Empate",
+            value="Aposta devolvida aos jogadores.",
+            inline=False
+        )
 
     await ctx.send(embed=embed)
 
