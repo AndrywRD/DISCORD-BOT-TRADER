@@ -627,6 +627,21 @@ async def saldo(ctx):
 # ---------------------------------------------------------
 # SISTEMA DE DUELOS
 # ---------------------------------------------------------
+def calcular_total_com_mult(cartas):
+    atk = 0
+    vida = 0
+
+    for c in cartas:
+        atk += int(c.get("ataque", 0))
+        vida += int(c.get("vida", 0))
+
+    base = atk + vida
+    mult = calcular_multiplicador(cartas)
+    total = int(base * mult)
+
+    return atk, vida, mult, total
+
+
 def calcular_multiplicador(cartas):
     mult = 1.0
     for c in cartas:
