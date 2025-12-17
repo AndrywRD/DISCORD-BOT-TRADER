@@ -124,13 +124,6 @@ def escolher_5_aleatorias(lista):
     return random.sample(lista, 5)
 
 
-raridades = {
-    "Comum": 60,
-    "Rara": 30,
-    "Épica": 9,
-    "Lendária": 1
-}
-
 EMOJI_RARITY = {
     "Comum": "⚪",
     "Rara": "🔵",
@@ -202,16 +195,14 @@ cartas = {
 
 
 def sortear_carta():
-    sorteio = random.random()
-    acumulado = 0
+    raridade = random.choices(
+        population=["Comum", "Rara", "Épica", "Lendária"],
+        weights=[60, 30, 9, 1],
+        k=1
+    )[0]
 
-    for raridade in ["Comum", "Rara", "Épica", "Lendária"]:
-        acumulado += raridades[raridade] / 100
-        if sorteio <= acumulado:
-            carta = random.choice(cartas[raridade])
-            return carta, raridade
-    return None, None
-
+    carta = random.choice(cartas[raridade])
+    return carta, raridade
 
 
 async def enviar_embed_com_imagem(ctx, embed, imagem):
@@ -300,6 +291,25 @@ async def paginate_embeds(ctx, embed_items, timeout: int = 120):
             message = await enviar_embed_com_imagem(ctx, next_embed, next_image)
 
         await add_nav_reactions(message)
+
+
+@bot.command()
+@commands.is_owner()
+async def testdrop(ctx, tentativas: int = 10000):
+    from collections import Counter
+
+    resultado = Counter()
+
+    for _ in range(tentativas):
+        _, raridade = sortear_carta()
+        resultado[raridade] += 1
+
+    linhas = []
+    for r in ["Comum", "Rara", "Épica", "Lendária"]:
+        qtd = resultado[r]
+        linhas.append(f"{r}: {qtd} ({qtd/tentativas*100:.2f}%)")
+
+    await ctx.send("📊 **Teste de Drop**\n" + "\n".join(linhas))
 
 
 @bot.command()
