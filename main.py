@@ -133,6 +133,10 @@ def escolher_5_aleatorias(lista):
         return lista  # se tiver 5 ou menos cartas, usa todas
     return random.sample(lista, 5)
 
+# CARGOS DO SERVIDOR PARA O SISTEMA DE RANKINGS
+
+ROLE_TOP_WINS = "👑 Campeão Supremo"
+ROLE_TOP_SPENT = "💰 Magnata do Servidor"
 
 EMOJI_RARITY = {
     "Comum": "⚪",
@@ -203,6 +207,27 @@ cartas = {
     ]
 }
 
+
+async def atualizar_cargo_top(guild: discord.Guild, role_name: str, user_id: int):
+    role = discord.utils.get(guild.roles, name=role_name)
+    if not role:
+        return  # cargo não existe
+
+    # Remove o cargo de todos que têm
+    for member in role.members:
+        if member.id != user_id:
+            try:
+                await member.remove_roles(role)
+            except Exception:
+                pass
+
+    # Dá o cargo ao novo TOP
+    member = guild.get_member(user_id)
+    if member and role not in member.roles:
+        try:
+            await member.add_roles(role)
+        except Exception:
+            pass
 
 def sortear_carta():
     raridade = random.choices(
@@ -782,7 +807,23 @@ async def ranking(ctx):
             embed.set_thumbnail(url=top_user.avatar.url)
 
     embed.set_footer(text="Top 10 • Histórico total do servidor")
-
+    # Atualiza cargos automáticos
+    guild = ctx.guild
+    
+    if ranking_wins:
+        await atualizar_cargo_top(
+            guild,
+            ROLE_TOP_WINS,
+            int(ranking_wins[0][0])
+        )
+    
+    if ranking_spent:
+        await atualizar_cargo_top(
+            guild,
+            ROLE_TOP_SPENT,
+            int(ranking_spent[0][0])
+        )
+        
     await ctx.send(embed=embed)
 
 
