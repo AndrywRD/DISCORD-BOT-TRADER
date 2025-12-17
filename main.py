@@ -474,20 +474,61 @@ async def kitdiario(ctx):
 async def minhacolecao(ctx):
     user_id = str(ctx.author.id)
     cards = get_user_cards(user_id)
+
     if not cards:
         await ctx.send(f"{ctx.author.mention} Você ainda não possui cartas em sua coleção.")
         return
 
-    counts = {}
-    for c in cards:
-        nome = c.get("nome", "Desconhecida")
-        counts[nome] = counts.get(nome, 0) + 1
+    # Agrupar cartas por nome + raridade
+    colecao = {}
 
-    lines = [f"{nome} x{qt}" for nome, qt in counts.items()]
-    chunk_size = 30
-    for i in range(0, len(lines), chunk_size):
-        chunk = lines[i:i+chunk_size]
-        await ctx.send(f"{ctx.author.mention} Sua coleção:\n" + "\n".join(chunk))
+    for c in cards:
+        chave = (c.get("nome"), c.get("raridade"))
+        if chave not in colecao:
+            colecao[chave] = {
+                "quantidade": 0,
+                "ataque": c.get("ataque", "—"),
+                "vida": c.get("vida", "—"),
+                "raridade": c.get("raridade", "Comum")
+            }
+        colecao[chave]["quantidade"] += 1
+
+    ordem_raridade = ["Lendária", "Épica", "Rara", "Comum"]
+
+    embed = discord.Embed(
+        title=f"📚 Coleção de {ctx.author.display_name}",
+        color=discord.Color.blurple()
+    )
+
+    for rar in ordem_raridade:
+        linhas = []
+
+        for (nome, r), dados in colecao.items():
+            if r != rar:
+                continue
+
+            linhas.append(
+                f"**{nome}** x{dados['quantidade']}\n"
+                f"└ ⚔️ {dados['ataque']} | ❤️ {dados['vida']}"
+            )
+
+        if linhas:
+            emoji = EMOJI_RARITY.get(rar, "")
+            embed.add_field(
+                name=f"{rar.upper()} {emoji}",
+                value="\n".join(linhas),
+                inline=False
+            )
+
+    embed.set_thumbnail(
+        url=ctx.author.avatar.url if ctx.author.avatar else None
+    )
+
+    embed.set_footer(
+        text=f"Total de cartas: {len(cards)}"
+    )
+
+    await ctx.send(embed=embed)
 
 
 @bot.command()
