@@ -20,6 +20,16 @@ LAST_CLAIM_FILE = DATA_DIR / "last_claims.json"
 CARDS_FILE = DATA_DIR / "cards.json"
 JOIN_TIMES_FILE = DATA_DIR / "join_times.json"
 WINS_FILE = DATA_DIR / "wins.json"
+SPENT_FILE = DATA_DIR / "spent_coins.json"
+
+def get_spent(user_id: str) -> int:
+    data = _load_json(SPENT_FILE)
+    return int(data.get(user_id, 0))
+
+def add_spent(user_id: str, amount: int):
+    data = _load_json(SPENT_FILE)
+    data[user_id] = int(data.get(user_id, 0)) + int(amount)
+    _save_json(SPENT_FILE, data)
 
 
 def _load_json(path: Path):
@@ -321,6 +331,8 @@ async def abrirpack(ctx):
         saldo = get_balance(user_id)
         await ctx.send(f"{ctx.author.mention} Saldo insuficiente. Você precisa de {COST} moedas. Saldo: {saldo} moedas.")
         return
+
+    add_spent(user_id, COST)
 
     carta, raridade = sortear_carta()
 
@@ -640,8 +652,12 @@ async def aceitar(ctx, desafiante: discord.Member):
     deduct_balance(str(ctx.author.id), 10)
     deduct_balance(str(desafiante.id), 10)
 
+    add_spent(str(ctx.author.id), 10)
+    add_spent(str(desafiante.id), 10)
+
     cartas_desafiante = get_user_cards(str(desafiante.id))
     cartas_desafiado = get_user_cards(str(ctx.author.id))
+
 
     if len(cartas_desafiante) == 0:
         return await ctx.send(f"{desafiante.mention} não possui cartas!")
@@ -718,29 +734,57 @@ async def vitorias(ctx):
 
 @bot.command()
 async def ranking(ctx):
-    data = _load_json(WINS_FILE)
+    wins_data = _load_json(WINS_FILE)
+    spent_data = _load_json(SPENT_FILE)
 
-    if not data:
-        return await ctx.send("Nenhum duelo foi vencido ainda.")
+    if not wins_data and not spent_data:
+        await ctx.send("Nenhum dado de ranking disponível ainda.")
+        return
 
-    # Ordena por número de vitórias
-    ordenado = sorted(data.items(), key=lambda x: x[1], reverse=True)
+    # Ordenações
+    ranking_wins = sorted(wins_data.items(), key=lambda x: x[1], reverse=True)[:10]
+    ranking_spent = sorted(spent_data.items(), key=lambda x: x[1], reverse=True)[:10]
 
-    linhas = []
-    pos = 1
-    for user_id, wins in ordenado[:20]:  # Top 20
-        user = bot.get_user(int(user_id))
-        nome = user.display_name if user else f"Usuário {user_id}"
-        linhas.append(f"**#{pos} — {nome}**: {wins} vitória(s)")
-        pos += 1
+    medalhas = {1: "🥇", 2: "🥈", 3: "🥉"}
+
+    def formatar_linhas(lista, sufixo):
+        linhas = []
+        for pos, (user_id, valor) in enumerate(lista, start=1):
+            user = bot.get_user(int(user_id))
+            nome = user.display_name if user else f"Usuário {user_id}"
+            medalha = medalhas.get(pos, f"`#{pos}`")
+            linhas.append(f"{medalha} **{nome}** — {valor} {sufixo}")
+        return linhas
 
     embed = discord.Embed(
-        title="🏆 Ranking de Vitórias",
-        description="\n".join(linhas),
+        title="🏆 Ranking Geral",
         color=discord.Color.gold()
     )
 
+    if ranking_wins:
+        embed.add_field(
+            name="⚔️ Vitórias em Duelos",
+            value="\n".join(formatar_linhas(ranking_wins, "vitória(s)")),
+            inline=False
+        )
+
+    if ranking_spent:
+        embed.add_field(
+            name="💸 Moedas Gastas",
+            value="\n".join(formatar_linhas(ranking_spent, "moedas")),
+            inline=False
+        )
+
+    # Thumbnail do maior vencedor
+    if ranking_wins:
+        top_user = bot.get_user(int(ranking_wins[0][0]))
+        if top_user and top_user.avatar:
+            embed.set_thumbnail(url=top_user.avatar.url)
+
+    embed.set_footer(text="Top 10 • Histórico total do servidor")
+
     await ctx.send(embed=embed)
+
 
 CUSTO_FUSAO = 10
 RECOMPENSA_DUPLICATA = 50
@@ -800,6 +844,7 @@ def fusao(user_id: str, raridade: str):
     carta1, carta2 = escolhidas
 
     saldo -= CUSTO_FUSAO
+    add_spent(user_id, CUSTO_FUSAO)
 
     prob = probabilidades_fusao.get((raridade, raridade), 0)
     sucesso = random.random() < prob
