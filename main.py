@@ -163,7 +163,7 @@ cartas = {
         {"nome": "CACHORRO DESCONFIADO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448395325948825752/CACHORRO_DESCONFIADO.jpeg", "ataque": 780, "vida": 1340},
         {"nome": "VAMO PRA LUA GRU", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448390676873085109/VAMO_PRA_LUA_GRU.jpeg","ataque": 1750,"vida": 2200},
         {"nome": "ABROBA COM LEITE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1448495068653551658/ABROBA_COM_LEITE.jpeg","ataque": 1324,"vida": 900},
-        {"nome": "SE ME CHAMOU DE JAO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1450996316623863828/SE_ME_CHAMOU_DE_JAO.jpeg": 1209,"vida": 1402},
+        {"nome": "SE ME CHAMOU DE JAO", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1450996316623863828/SE_ME_CHAMOU_DE_JAO.jpeg","ataque": 1209,"vida": 1402},
         {"nome": "BEBE", "imagem": "https://cdn.discordapp.com/attachments/1448120749738037341/1450938745707823286/BEBE.jpeg","ataque": 1200,"vida": 650},
         {"nome": "COCAO", "imagem": "https://media.discordapp.net/attachments/1448120749738037341/1451001216535625889/COCAO.jpeg","ataque": 1230,"vida": 769},
         {"nome": "DEIVID N° 11", "imagem": "https://media.discordapp.net/attachments/1448120749738037341/1451001215633850624/DEIVID_N_11_.jpeg","ataque": 1111,"vida": 1111},
